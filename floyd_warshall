@@ -1,0 +1,55 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+//FLOYD - WARSHAL
+int main()
+{
+    int n,m; // num of ver n edge
+    cin >> n >> m;
+    int mat[n+1][n+1];
+    for(int i=0; i<=n;i++)
+    {
+        for(int j=0; j<=n;j++)
+        {
+            if(i==j)
+                mat[i][j]=0;
+            else
+                mat[i][j]=9999;
+        }
+
+    }
+    for(int i=1;i<=m;i++)
+    {
+        int u,v,w;
+        cin >> u >> v >>w;
+        mat[u][v] = w;
+    }
+
+    for(int k=1; k<=n; k++)
+    {
+       for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=n;j++)
+            {
+                if(mat[i][j] > (mat[i][k]+mat[k][j]) )
+                    mat[i][j] = mat[i][k]+mat[k][j];
+            }
+        }
+    }
+    cout<<endl;
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<=n;j++)
+        {
+            if(mat[i][j]!= 0 && mat[i][j]<100) // assume weight is not too big
+            {
+                cout<<i<<"-"<<j<<": "<<mat[i][j]<<endl;
+            }
+        }
+    }
+
+
+
+
+    return 0;
+}
