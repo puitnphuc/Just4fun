@@ -1,0 +1,70 @@
+#include <iostream>
+#include <vector>
+#include <set>
+#define pii pair<int,int>
+using namespace std;
+const int maxn = 100;
+vector<pii> g[maxn];
+bool marked[maxn];
+set<int> output;
+
+
+void visit(int v)
+{
+    marked[v] = true;
+    output.insert(v);
+}
+
+void dfs(int u)
+{
+     visit(u);
+
+     for( pii q : g[u]) //neighour
+     {
+         int v = q.first;
+         int w = q.second;
+
+         if( marked[v]== false) // if unvisit -> visit
+         {
+             dfs(v);
+         }
+     }
+
+}
+
+
+int main()
+{
+    int n,m;
+    cin >> n >> m; // vert n edge
+
+    //initialize;
+    for(int i=0; i<=n;i++)
+    {
+        marked[i] = false;
+    }
+
+    for(int i=1;i<=m;i++)  //undirected graph
+    {
+        int u,v,w;
+        cin >> u >> v >> w;
+        g[u].push_back( {v,w});
+        g[v].push_back( {u,w});
+    }
+
+    int s; // starting point for dfs
+    cin >> s;
+    dfs(s);
+
+    for(auto item: output)
+    {
+        cout<< item << " ";
+    }
+
+
+
+
+
+
+    return 0;
+}
